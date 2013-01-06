@@ -11,7 +11,7 @@ time.
  
 For example, let's say you build a QuicksaveAction that saves your game.  It 
 could be fired off by a KeypressTrigger bound to f5, a ConsoleCommandTrigger
-bound to "quicksave", and an in-game ElevatorButtonTrigger bound to a 
+bound to "quicksave", or an in-game ElevatorButtonTrigger bound to a 
 SeriesAction which fires off CutsceneAction, LevelLoadAction, and
 QuicksaveAction.  Same payload, called from three different places, connected 
 together only in the Unity3d editor.
