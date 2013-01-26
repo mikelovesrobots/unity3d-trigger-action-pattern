@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TriggerEnterTrigger : TriggerBase {
+public class EnterColliderTrigger : TriggerBase {
   private void OnTriggerEnter(Collider other) {
     Trigger();
   }
