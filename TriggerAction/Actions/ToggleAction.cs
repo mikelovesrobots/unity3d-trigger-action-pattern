@@ -3,21 +3,15 @@ using System.Collections;
 
 public class ToggleAction : ActionBase {
   public bool toggle = false;
+  public ActionBase enableAction;
+  public ActionBase disableAction;
 
   public override void Action() {
     toggle = !toggle;
     if (toggle) {
-      OnToggleEnable();
+      enableAction.Action();
     } else {
-      OnToggleDisable();
+      disableAction.Action();
     }
-  }
-
-  public virtual void OnToggleEnable() {
-
-  }
-
-  public virtual void OnToggleDisable() {
-
   }
 }
