@@ -99,6 +99,13 @@ because it's working at the right level of abstraction.  And as a bonus, you've
 now got a reusable prefab.
 
 
+To Install
+==========
+
+Drop the TriggerAction folder inside Assets/Plugins (Create Plugins if it 
+doesn't exist.)
+
+
 Included Triggers
 ================
 
