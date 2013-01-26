@@ -3,9 +3,9 @@ using System.Collections;
 
 public class SetActiveAction : ActionBase {
   public GameObject target;
-  public bool isActive;
+  public bool setToActive;
 
   public override void Action() {
-    target.SetActive(isActive);
+    target.SetActive(setToActive);
   }
 }
