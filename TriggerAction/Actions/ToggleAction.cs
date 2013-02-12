@@ -6,12 +6,12 @@ public class ToggleAction : ActionBase {
   public ActionBase enableAction;
   public ActionBase disableAction;
 
-  public override void Action() {
+  public override void Act() {
     toggle = !toggle;
     if (toggle) {
-      enableAction.Action();
+      enableAction.Act();
     } else {
-      disableAction.Action();
+      disableAction.Act();
     }
   }
 }

@@ -8,7 +8,7 @@ public class SpawnGameObjectAction : ActionBase {
   public bool isTemporary;
   public float lifespan;
 
-  public override void Action() {
+  public override void Act() {
     GameObject instance = GameObject.Instantiate(prefab, transform.position, transform.rotation) as GameObject;
 
     if (isTemporary) {

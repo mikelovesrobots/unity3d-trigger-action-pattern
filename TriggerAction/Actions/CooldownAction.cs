@@ -6,9 +6,9 @@ public class CooldownAction : ActionBase {
   public ActionBase action;
   public bool inCooldown = false;
 
-  public override void Action() {
+  public override void Act() {
     if (!inCooldown) {
-      action.Action();
+      action.Act();
       inCooldown = true;
       StartCoroutine(ClearCooldown());
     }

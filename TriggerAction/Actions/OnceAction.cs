@@ -5,10 +5,10 @@ public class OnceAction : ActionBase {
   public ActionBase action;
   private bool used = false;
 
-  public override void Action () {
+  public override void Act () {
     if (!used) {
       used = true;
-      action.Action();
+      action.Act();
     }
   }
 }

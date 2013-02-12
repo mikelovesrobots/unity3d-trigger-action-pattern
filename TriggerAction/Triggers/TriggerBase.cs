@@ -16,7 +16,7 @@ public class TriggerBase : MonoBehaviour {
 
   public void Trigger () {
     if (action) {
-      action.Action();
+      action.Act();
     }
   }
 }

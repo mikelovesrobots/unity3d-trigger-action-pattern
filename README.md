@@ -5,7 +5,7 @@ This makes your code more flexible and friendlier to make changes to.
 The Rant
 ========
 
-Typically people code Unity behaviours like this (if you're lucky):
+People often code Unity behaviours like this:
 
 ```
 using UnityEngine;
@@ -27,17 +27,19 @@ public class MonsterTrap : MonoBehaviour {
 
 The problem with this class, simple as it is, is that the effect, spawning a 
 monster, is coupled too tightly to the cause, something entering the trigger.  
-If you decide in the future that you actually need another trigger by a nearby 
+When you decide in the future that you actually need a second trigger by a nearby 
 door, you'll have to split this class into two classes.  This kind of rewriting 
-feels sucky because it is sucky.  The original class was simply doing too much.
+feels sucky because it is sucky.  The class is doing too much.
 
 My solution is to always break the causes (triggers) into separate classes from
-the effects (actions).  Keep the triggers and actions only doing one small thing
-and always implement the same interface.  This allows developers to wire these
-small pieces together in the editor into reusable prefabs.  
+the effects (actions).  Triggers can be anything really, like pressing a key, 
+or a GameObject's Start() callback firing.
 
-As an example, if we were to build this MonsterTrap into a prefab using 
-Trigger/Action, it would probably look like this:
+
+The Solution
+============
+
+Let's say we were to build this MonsterTrap into a prefab using Trigger/Action.
 
 ```
 MonsterTrap (GameObject)
@@ -46,7 +48,8 @@ MonsterTrap (GameObject)
   - SpawnGameObjectAction
 ```
 
-Now let's modify it to put another trigger by the window:
+The great thing about this is that we can easily modify it to add in another 
+trigger:
 
 ```
 MonsterTrap (GameObject)
@@ -60,7 +63,8 @@ MonsterTrap (GameObject)
     - SpawnGameObjectAction
 ```
 
-But this can spawn multiple times, so let's put the OnceAction in front of the spawn action.
+Then we discover the monster will be spawned each time the player wanders through 
+the box collider, so let's put the OnceAction in front of the spawn action.
 
 ```
 MonsterTrap (GameObject)
@@ -92,11 +96,10 @@ MonsterTrap (GameObject)
         - SpawnGameObjectAction
 ```
 
-The point here, and there is a point, is that when triggers are loosely coupled 
-to actions and all actions have the same interface, actions become composable. 
-You write an action once and re-use it in a bunch of places.  This feels right
-because it's working at the right level of abstraction.  And as a bonus, you've
-now got a reusable prefab.
+The point here is that when triggers are loosely coupled to actions and all 
+actions have the same interface, actions become composable.  You write an action 
+once and re-use it in a bunch of places.  This feels better because it's working 
+at a cleaner level of abstaction.
 
 
 To Install
@@ -224,7 +227,7 @@ Trigger() when you want to fire off the associated action.
 ActionBase
 ----------
 Build most of your custom actions by inheriting from ActionBase.  Simply 
-override the Action() method in your new class with your payload code and you're 
+override the Act() method in your new class with your payload code and you're 
 good to go.
 
 
@@ -232,7 +235,7 @@ Note from the Author
 =======================
 
 I hope you find this a useful way to organize your code.  I used these triggers 
-and actions in my game, Piggyback dungeon Ryder, and felt that the benefits of 
+and actions in my game, Piggyback Dungeon Ryder, and felt that the benefits of 
 organizing my code this way far outweighed the drawbacks -- which to be fair
 are mainly the overhead of managing prefabs.
 

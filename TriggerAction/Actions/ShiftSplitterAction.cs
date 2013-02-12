@@ -5,11 +5,11 @@ public class ShiftSplitterAction : ActionBase {
   public ActionBase shiftAction;
   public ActionBase standardAction;
 
-  public override void Action() {
+  public override void Act() {
     if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-      shiftAction.Action();
+      shiftAction.Act();
     } else {
-      standardAction.Action();
+      standardAction.Act();
     }
   }
 }

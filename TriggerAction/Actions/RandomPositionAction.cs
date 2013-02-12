@@ -12,7 +12,7 @@ public class RandomPositionAction : ActionBase {
     }
   }
 
-  public override void Action() {
+  public override void Act() {
     float x = Random.Range(positionMin.x, positionMax.x);
     float y = Random.Range(positionMin.y, positionMax.y);
     float z = Random.Range(positionMin.z, positionMax.z);
