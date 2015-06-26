@@ -6,6 +6,6 @@ public class QueueAnimationAction : ActionBase {
   public string animationName;
 
   public override void Act() {
-    target.animation.CrossFadeQueued(animationName);
+    target.GetComponent<Animation>().CrossFadeQueued(animationName);
   }
 }

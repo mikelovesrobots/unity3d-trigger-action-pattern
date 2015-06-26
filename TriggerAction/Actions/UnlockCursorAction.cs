@@ -3,6 +3,7 @@ using System.Collections;
 
 public class UnlockCursorAction : ActionBase {
   public override void Act() {
-    Screen.lockCursor = false;
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
   }
 }
