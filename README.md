@@ -1,113 +1,13 @@
-**Trigger/Action** is an organizational strategy that loosely couples an event like
-pressing a key or an object entering a trigger to an action like spawning a monster.
-This makes your code more flexible and friendlier to make changes to.
-
-The Rant
-========
-
-People often code Unity behaviours like this:
-
-```
-using UnityEngine;
-using System.Collections;
-
-[RequireComponent (typeof(MonsterSpawner))]
-public class MonsterTrap : MonoBehaviour {
-  private MonsterSpawner monsterSpawner;
-
-  private void Start() {
-    monsterSpawner = GetComponent<MonsterSpawner>();
-  }
- 
-  private void OnTriggerEnter(Collider other) { 
-    monsterSpawner.Spawn();
-  }
-}
-```
-
-The problem with this class, simple as it is, is that the effect, spawning a 
-monster, is coupled too tightly to the cause, something entering the trigger.  
-When you decide in the future that you actually need a second trigger by a nearby 
-door, you'll have to split this class into two classes.  This kind of rewriting 
-feels sucky because it is sucky.  The class is doing too much.
-
-My solution is to always break the causes (triggers) into separate classes from
-the effects (actions).  Triggers can be anything really, like pressing a key, 
-or a GameObject's Start() callback firing.
-
-
-The Solution
-============
-
-Let's say we were to build this MonsterTrap into a prefab using Trigger/Action.
-
-```
-MonsterTrap (GameObject)
-  - BoxCollider
-  - EnterColliderTrigger
-  - SpawnGameObjectAction
-```
-
-The great thing about this is that we can easily modify it to add in another 
-trigger:
-
-```
-MonsterTrap (GameObject)
-  - Door Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Window Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Spawner (GameObject)
-    - SpawnGameObjectAction
-```
-
-Then we discover the monster will be spawned each time the player wanders through 
-the box collider, so let's put the OnceAction in front of the spawn action.
-
-```
-MonsterTrap (GameObject)
-  - Door Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Window Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Spawner (GameObject)
-    - OnceAction
-      - SpawnGameObjectAction
-```
-
-Now let's add a scary sound when it spawns:
-
-```
-MonsterTrap (GameObject)
-  - Door Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Window Trigger (GameObject)
-    - BoxCollider
-    - EnterColliderTrigger
-  - Spawner (GameObject)
-    - OnceAction
-      - SeriesAction
-        - PlaySoundAction
-        - SpawnGameObjectAction
-```
-
-The point here is that when triggers are loosely coupled to actions and all 
-actions have the same interface, actions become composable.  You write an action 
-once and re-use it in a bunch of places.  This feels better because it's working 
-at a cleaner level of abstaction.
-
+**Trigger/Action** is an organizational strategy that loosely couples events to 
+actions. It's what happens if you take single responsibility principle to its
+logical conclusion. Not only is code easier to work on, but it's faster to
+prototype in and easier to wire up.
 
 To Install
 ==========
 
 Drop the TriggerAction folder inside Assets/Plugins (Create Plugins if it 
 doesn't exist.)
-
 
 Included Triggers
 ================
@@ -116,7 +16,7 @@ KeypressTrigger
 ---------------
 When a button is pressed, fires off the attached action.
 
-EnterColliderTrigger
+EnterTriggerTrigger
 --------------------
 When an object enters the trigger, fires off the associated action.  Remember 
 that you can create custom layers in Unity3d that only react when a particular 
@@ -126,18 +26,23 @@ StartTrigger
 ------------
 Fires the action immediately when the gameObject fires its Start() callback.
 
+UpdateTrigger
+------------
+Fires the action immediately when the gameObject fires its Start() callback.
+
 
 Included Actions
 ==============
 
 CooldownAction
 --------------
-Utility action that will call another action, but will not fire again until an 
-amount of time has passed.  Super useful for controlling player attacks.
+Utility action that will call another action, but not fire again (no matter
+how many times it is called) until an amount of time has passed.
+Super useful for controlling player attacks.
 
 DebugAction
 -----------
-Simply prints to the log.  Useful for figuring out if a complex chain is 
+Simply prints to the log. Useful for figuring out if a complex chain is 
 working correctly.
 
 DelayedAction
@@ -152,8 +57,8 @@ Utility action that hides the cursor.
 
 OnceAction
 ----------
-Utility action that will call another action, but just once, then it silently
-ignores all action calls.
+Utility action that will call another action, but just once, then silently
+ignore all future action calls.
 
 PlaySoundAction
 ---------------
@@ -173,9 +78,22 @@ RandomPositionAction
 Repositions the named GameObject somewhere randomly between the specified
 MinPosition and MaxPosition.
 
+RandomSampleAction
+------------------
+Utility action that when called will randomly choose one of the attached actions,
+and fire it.  This is useful for introducing a little randomness into your game.
+
+RemoveGameObjectActions
+------------------------
+Deletes a gameobject.
+
 RemoveGameObjectsActions
 ------------------------
-Deletes the named gameobjects.
+Deletes a number of gameobjects.
+
+SendUnityEventAction
+--------------------
+Utility action that can be used to call nearly anything. Easy to overuse.
 
 SeriesAction
 ------------
@@ -183,21 +101,21 @@ Utility action that runs the specified other actions in turn.
 
 SetActiveAction
 ---------------
-Sets a target GameObject to active or disabled depending on the setToActive
-setting.
+Sets a target GameObject to active or disabled depending on the setting.
 
 ShiftSplitterAction
 -------------------
 When the action is fired and the user is holding down shift, fires one action,
-otherwise fires another action.
+otherwise fires another action. Perhaps a little overly specialized for this
+collection.
 
-SpawnGameObjectAction
+SpawnPrefabAction
 ---------------------
 Spawns a specified gameObject.  Options include:
 
-* `attachToSelf` -- specifies if this gameObject should be parent or not
-* `isTemporary` -- indicates the spawned object should be deleted
-* `lifespan` -- indicates how long the object should live
+* `AttachToSelf` -- boolean that specifies if this gameObject should be the parent
+* `IsTemporary` -- indicates the spawned object should eventually be deleted
+* `TemporaryLifespan` -- indicates how long the object should live
 
 These last two settings are useful for one-shot particle emitters.
 
@@ -218,26 +136,22 @@ How do I write my own custom actions and triggers?
 First, check out the source to the provided triggers and actions.  They're not
 complicated at all.
 
-TriggerBase
------------
-
-Build most of your custom trigger classes by inheriting from TriggerBase.  Call 
-Trigger() when you want to fire off the associated action.
+Trigger
+-------
+A trigger is any class that takes an ActionBase and calls ActionBase.Act() on it.
 
 ActionBase
 ----------
-Build most of your custom actions by inheriting from ActionBase.  Simply 
-override the Act() method in your new class with your payload code and you're 
-good to go.
+Inherit from ActionBase and override the Act() method in your class with your
+payload code.
 
 
 Note from the Author
 =======================
 
 I hope you find this a useful way to organize your code.  I used these triggers 
-and actions in my game, Piggyback Dungeon Ryder, and felt that the benefits of 
-organizing my code this way far outweighed the drawbacks -- which to be fair
-are mainly the overhead of managing prefabs.
+and actions in a number of my games including Exploding Kittens for iOS and 
+Android.
 
 Feel free to contact me if you have any questions, comments, potential contract 
 work, or want to contribute anything back.  I love pull requests.  
