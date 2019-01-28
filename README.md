@@ -3,6 +3,15 @@ actions. It's what happens if you take single responsibility principle to its
 logical conclusion. Not only is code easier to work on, but it's faster to
 prototype in and easier to wire up.
 
+Synopsis
+========
+
+Drop a trigger like KeypressTrigger onto a GameObject. Set ButtonName to "Fire1"
+if it isn't already. Drag a SpawnPrefabAction onto the same GameObject. Drag
+that action onto the trigger in the action slot. Assign a Prefab to the Prefab
+slot. Run the game and every time you press the left mouse button, the prefab
+will be spawned. Takes like 10 seconds when you're used to the system.
+
 To Install
 ==========
 

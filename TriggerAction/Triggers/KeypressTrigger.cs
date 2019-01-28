@@ -3,10 +3,10 @@ using System.Collections;
 
 public class KeypressTrigger : MonoBehaviour {
     public ActionBase Action;
-    public string button;
+    public string ButtonName = "Fire1";
 
     void Update () {
-        if (Input.GetButtonDown(button)) {
+        if (Input.GetButtonDown(ButtonName)) {
             Action.Act();
         }
     }
