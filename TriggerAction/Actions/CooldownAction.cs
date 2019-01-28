@@ -2,20 +2,20 @@ using UnityEngine;
 using System.Collections;
 
 public class CooldownAction : ActionBase {
-  public float cooldownDelay;
-  public ActionBase action;
-  public bool inCooldown = false;
+    public float CooldownDelay;
+    public ActionBase Action;
+    public bool InCooldown = false;
 
-  public override void Act() {
-    if (!inCooldown) {
-      action.Act();
-      inCooldown = true;
-      StartCoroutine(ClearCooldown());
+    public override void Act() {
+        if (!InCooldown) {
+            Action.Act();
+            InCooldown = true;
+            StartCoroutine(ClearCooldown());
+        }
     }
-  }
 
-  IEnumerator ClearCooldown() {
-    yield return new WaitForSeconds(cooldownDelay);
-    inCooldown = false;
-  }
+    IEnumerator ClearCooldown() {
+        yield return new WaitForSeconds(CooldownDelay);
+        InCooldown = false;
+    }
 }

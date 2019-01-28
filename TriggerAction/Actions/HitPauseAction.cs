@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class HitPauseAction : ActionBase {
-    public int pauseDt;
     public int FramesToPause = 5;
+    private int pauseDt;
 
     public override void Act() {
         Time.timeScale = 0.0f;
@@ -13,7 +13,7 @@ public class HitPauseAction : ActionBase {
     void Update() {
         pauseDt--;
         if (pauseDt == 0) {
-           Time.timeScale = 1.0f;
+            Time.timeScale = 1.0f;
         }
     }
 }

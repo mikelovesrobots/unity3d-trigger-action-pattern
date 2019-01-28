@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class KeypressTrigger : TriggerBase {
-  public string button;
+public class KeypressTrigger : MonoBehaviour {
+    public ActionBase Action;
+    public string button;
 
-  void Update () {
-    if (Input.GetButtonDown(button)) {
-      Trigger();
+    void Update () {
+        if (Input.GetButtonDown(button)) {
+            Action.Act();
+        }
     }
-  }
 }

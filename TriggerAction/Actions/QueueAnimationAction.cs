@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class QueueAnimationAction : ActionBase {
-  public GameObject target;
-  public string animationName;
+    public Animation Animation;
+    public string AnimationName;
 
-  public override void Act() {
-    target.GetComponent<Animation>().CrossFadeQueued(animationName);
-  }
+    public override void Act() {
+        Animation.CrossFadeQueued(AnimationName);
+    }
 }

@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class RandomChanceAction : ActionBase {
-  public int percentageChance;
-  public ActionBase action;
+    public int PercentageChance;
+    public ActionBase Action;
 
-  public override void Act() {
-    if (Random.Range(0, 100) < percentageChance) {
-      action.Act();
+    public override void Act() {
+        if (Random.Range(0, 100) <= PercentageChance) {
+            Action.Act();
+        }
     }
-  }
 }

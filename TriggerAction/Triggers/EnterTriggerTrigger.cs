@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartTrigger : MonoBehaviour {
+public class EnterTriggerTrigger : MonoBehaviour {
     public ActionBase Action;
 
-    private void Start() {
+    private void OnTriggerEnter(Collider other) {
         Action.Act();
     }
 }

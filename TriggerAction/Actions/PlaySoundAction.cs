@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class PlaySoundAction : ActionBase {
-  public override void Act() {
-    GetComponent<AudioSource>().Play();
-  }
+    public AudioSource AudioSource;
+
+    public override void Act() {
+        AudioSource.Play();
+    }
 }

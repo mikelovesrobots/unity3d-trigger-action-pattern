@@ -2,16 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class ToggleAction : ActionBase {
-  public bool toggle = false;
-  public ActionBase enableAction;
-  public ActionBase disableAction;
+    public bool Toggled = false;
+    public ActionBase EnabledAction;
+    public ActionBase DisabledAction;
 
-  public override void Act() {
-    toggle = !toggle;
-    if (toggle) {
-      enableAction.Act();
-    } else {
-      disableAction.Act();
+    public override void Act() {
+        Toggled = !Toggled;
+        if (Toggled) {
+            EnabledAction.Act();
+        } else {
+            DisabledAction.Act();
+        }
     }
-  }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 
 public class SeriesAction : ActionBase {
-  public ActionBase[] actions;
+    public ActionBase[] Actions;
 
-  public override void Act() {
-    foreach (ActionBase action in actions) {
-      action.Act();
+    public override void Act() {
+        foreach (var action in Actions) {
+            action.Act();
+        }
     }
-  }
 }
