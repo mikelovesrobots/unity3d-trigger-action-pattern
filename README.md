@@ -51,6 +51,11 @@ Utility action that when called will wait a specified time, then fire another
 action.  Useful for timing things like destroying a crossbow bolt 10 seconds
 after it's been spawned.
 
+HitPauseAction
+--------------
+Freezes the game for a few frames when this action is hit. Useful for giving a
+feeling of weight to player hits.
+
 LockCursorAction
 ----------------
 Utility action that hides the cursor.
