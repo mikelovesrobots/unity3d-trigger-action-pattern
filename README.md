@@ -21,9 +21,15 @@ doesn't exist.)
 Included Triggers
 ================
 
-KeypressTrigger
+ButtonDownTrigger
 ---------------
-When a button is pressed, fires off the attached action.
+When a button is pressed down, fires off the attached action. Good for things
+like jump.
+
+ButtonUpTrigger
+---------------
+When a button is released, fires off the attached action. Good for things
+like clipping a jump short.
 
 EnterTriggerTrigger
 --------------------
