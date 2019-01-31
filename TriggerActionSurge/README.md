@@ -38,3 +38,8 @@ Tweens the local scale of the transform to the given scale. Good for disappearan
 and any other sort of rescaling where you don't want to worry about taking the 
 current scale into account.
 
+ShakeAction
+-----------
+Tween shakes the transform. Good for screenshake for sure.
+
+
