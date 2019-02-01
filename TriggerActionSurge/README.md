@@ -9,6 +9,15 @@ from the asset store.
 Included Triggers
 =================
 
+CanvasFadeFromAction
+--------------------
+Tweens the Canvas Group alpha from the provided alpha to the current alpha.
+
+CanvasFadeToAction
+--------------------
+Tweens the Canvas Group alpha to the provided alpha.  Good for fading windows 
+in.
+
 MoveByAction
 ------------
 Tweens the position of the transform by the given increment. Good for things 
