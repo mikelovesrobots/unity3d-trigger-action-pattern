@@ -22,6 +22,18 @@ MoveToAction
 ------------
 Tweens the transform to the given position. Good for any sort of move really.
 
+RotateByAction
+--------------
+Tweens the transform rotation by the given increment.
+
+RotateFromAction
+----------------
+Tweens the transform rotation from the given rotation to the current rotation.
+
+RotateToAction
+--------------
+Tweens the transform rotation to the given rotation.
+
 ScaleByAction
 -------------
 Tweens the local scale of the transform by the given increment. Good for things
